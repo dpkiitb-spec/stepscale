@@ -7,10 +7,10 @@
     <style>
         :root {
             --primary: #0071e3;
-            --primary-glow: rgba(0, 113, 227, 0.15);
+            --primary-glow: rgba(0, 113, 227, 0.25);
             --accent: #5fc9f8;
-            --bg-dark: #000000;
-            --bg-card: #1c1c1e;
+            --bg-dark: #070708;
+            --bg-card: #121214;
             --text-main: #f5f5f7;
             --text-muted: #86868b;
             --white: #ffffff;
@@ -29,6 +29,20 @@
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
+        }
+
+        /* Ambient background glow */
+        .glow-bg {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 1400px;
+            height: 600px;
+            background: radial-gradient(circle at 50% -100px, rgba(0, 113, 227, 0.18) 0%, rgba(7, 7, 8, 0) 70%);
+            z-index: -1;
+            pointer-events: none;
         }
 
         header {
@@ -51,50 +65,53 @@
             letter-spacing: -0.02em;
         }
 
-        .logo-icon {
-            width: 28px;
-            height: 28px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: 8px;
-            box-shadow: 0 0 15px var(--primary-glow);
+        /* SVG Logo styling with spin animation on hover */
+        .logo svg {
+            width: 32px;
+            height: 32px;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        /* Hero Container */
+        .logo:hover svg {
+            transform: rotate(180deg);
+        }
+
+        /* Keyframe Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes pulseGlow {
+            0% { opacity: 0.3; transform: scale(0.98); }
+            50% { opacity: 0.6; transform: scale(1.02); }
+            100% { opacity: 0.3; transform: scale(0.98); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero Section */
         .hero {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 60px 24px 100px 24px;
+            padding: 40px 24px 100px 24px;
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
-            gap: 80px;
+            gap: 60px;
             align-items: center;
-            position: relative;
-        }
-
-        /* Ambient Glow Background */
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 20%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(0, 113, 227, 0.12) 0%, rgba(0,0,0,0) 70%);
-            z-index: -1;
-            pointer-events: none;
+            animation: slideIn 1s ease-out;
         }
 
         @media (max-width: 968px) {
             .hero {
                 grid-template-columns: 1fr;
                 text-align: center;
-                padding: 40px 24px 80px 24px;
+                padding: 20px 24px 80px 24px;
                 gap: 50px;
-            }
-            .hero::before {
-                width: 300px;
-                height: 300px;
             }
         }
 
@@ -113,7 +130,7 @@
         h1 {
             font-size: 4rem;
             font-weight: 800;
-            line-height: 1.08;
+            line-height: 1.1;
             letter-spacing: -0.03em;
             margin-bottom: 24px;
             background: linear-gradient(to right, #ffffff, #a1a1a6);
@@ -122,9 +139,7 @@
         }
 
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.8rem;
-            }
+            h1 { font-size: 2.8rem; }
         }
 
         .subtitle {
@@ -136,34 +151,36 @@
         }
 
         @media (max-width: 968px) {
-            .subtitle {
-                margin-left: auto;
-                margin-right: auto;
-            }
+            .subtitle { margin: 0 auto 40px auto; }
         }
 
-        /* Mockup Concept */
+        /* Interactive Phone Mockup Box (Floats constantly) */
         .preview-box {
-            background: linear-gradient(145deg, #2c2c2e, #1c1c1e);
+            background: linear-gradient(145deg, #222225, #121214);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 28px;
-            padding: 30px;
+            padding: 24px;
             display: flex;
             align-items: center;
             gap: 20px;
             max-width: 440px;
             margin-bottom: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            animation: float 6s ease-in-out infinite;
         }
 
         @media (max-width: 968px) {
-            .preview-box {
-                margin: 0 auto 40px auto;
-            }
+            .preview-box { margin: 0 auto 40px auto; text-align: left; }
         }
 
-        .preview-phone-icon {
-            font-size: 2.5rem;
+        .phone-mockup-graphic {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .preview-text h4 {
@@ -178,16 +195,58 @@
             color: var(--text-muted);
         }
 
-        /* Form Card */
+        .preview-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            color: #30d158; /* Apple green */
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #30d158;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulseGlow 1.5s infinite;
+        }
+
+        /* High-Tech Form Card with Hover Lift */
         .waitlist-form {
-            background: rgba(28, 28, 30, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(18, 18, 20, 0.75);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 40px;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-radius: 28px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
             text-align: left;
+            transition: transform 0.4s ease, border-color 0.4s ease;
+        }
+
+        .waitlist-form:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 113, 227, 0.3);
+        }
+
+        /* SVG Insole Illustration Container */
+        .insole-graphic-wrapper {
+            width: 100%;
+            height: 160px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 24px;
+            background: radial-gradient(circle, rgba(0, 113, 227, 0.1) 0%, rgba(0,0,0,0) 80%);
+            border-radius: 20px;
+        }
+
+        .insole-graphic-wrapper svg {
+            height: 140px;
+            filter: drop-shadow(0 0 12px var(--primary-glow));
         }
 
         .form-title {
@@ -200,7 +259,7 @@
         .form-desc {
             font-size: 0.95rem;
             color: var(--text-muted);
-            margin-bottom: 28px;
+            margin-bottom: 24px;
             line-height: 1.5;
         }
 
@@ -225,11 +284,11 @@
         input[type="email"]:focus {
             border-color: var(--primary);
             background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 15px var(--primary-glow);
+            box-shadow: 0 0 20px var(--primary-glow);
         }
 
         .btn-submit {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            background: linear-gradient(135deg, var(--primary), #0056ad);
             color: var(--white);
             border: none;
             padding: 18px;
@@ -243,13 +302,13 @@
 
         .btn-submit:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 113, 227, 0.5);
+            box-shadow: 0 8px 25px rgba(0, 113, 227, 0.5);
         }
 
         /* Features Section */
         .features-section {
             border-top: 1px solid rgba(255, 255, 255, 0.08);
-            background: linear-gradient(to bottom, #000000, #0c0c0e);
+            background: linear-gradient(to bottom, #070708, #000000);
             padding: 100px 24px;
         }
 
@@ -280,8 +339,8 @@
         }
 
         .feature-card {
-            background: rgba(28, 28, 30, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(18, 18, 20, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.04);
             padding: 40px;
             border-radius: 24px;
             transition: all 0.3s ease;
@@ -289,7 +348,7 @@
 
         .feature-card:hover {
             transform: translateY(-5px);
-            background: rgba(28, 28, 30, 0.6);
+            background: rgba(18, 18, 20, 0.8);
             border-color: rgba(255, 255, 255, 0.12);
         }
 
@@ -297,9 +356,14 @@
             font-size: 2.2rem;
             margin-bottom: 24px;
             display: inline-block;
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.03);
             padding: 12px;
             border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .feature-title {
@@ -327,9 +391,22 @@
 </head>
 <body>
 
+    <div class="glow-bg"></div>
+
     <header>
         <a href="#" class="logo">
-            <div class="logo-icon"></div>
+            <!-- Modern Responsive SVG Logo -->
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="32" height="32" rx="8" fill="url(#logoGrad)"/>
+                <path d="M9 16C9 12.134 12.134 9 16 9C19.866 9 23 12.134 23 16C23 19.866 19.866 23 16 23" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="16" cy="16" r="3" fill="white"/>
+                <defs>
+                    <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#0071e3"/>
+                        <stop offset="1" stop-color="#5fc9f8"/>
+                    </linearGradient>
+                </defs>
+            </svg>
             StepScale
         </a>
     </header>
@@ -341,21 +418,55 @@
             <p class="subtitle">An ultra-thin, universal smart insole that fits into any shoe. It silently measures your weight and securely displays it on your phone screen the exact second you pick it up.</p>
             
             <div class="preview-box">
-                <div class="preview-phone-icon">📱</div>
+                <div class="phone-mockup-graphic">
+                    <!-- Tech Wave Signal Icon (SVG) -->
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0071e3" stroke-width="2" stroke-linecap="round">
+                        <path d="M12 20v-8M17 20V4M7 20v-4" />
+                    </svg>
+                </div>
                 <div class="preview-text">
                     <h4>"Good morning, Alex."</h4>
-                    <p>Screen shows: 168.4 lbs (Synced 1s ago via StepScale)</p>
+                    <p>Screen shows: 168.4 lbs</p>
+                    <div class="preview-status">
+                        <span class="pulse-dot"></span> Active Bluetooth Sync
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="hero-right">
             <div class="waitlist-form">
+                <!-- SVG Vector of Smart Insole with Pressure Rings -->
+                <div class="insole-graphic-wrapper">
+                    <svg viewBox="0 0 100 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Outer Shoe Path -->
+                        <path d="M50,10 C20,10 20,70 30,110 C35,130 30,160 40,190 C45,200 55,200 60,190 C70,160 65,130 70,110 C80,70 80,10 50,10 Z" fill="#1c1c1e" stroke="#2c2c2e" stroke-width="3"/>
+                        <!-- Inner Insole Trace Lines -->
+                        <path d="M50,18 C25,18 25,70 34,108 C38,126 34,158 42,185 C46,192 54,192 58,185 C66,158 62,126 66,108 C75,70 75,18 50,18 Z" stroke="url(#insoleGrad)" stroke-width="2" stroke-dasharray="4 4"/>
+                        <!-- Pressure/Weight Sensors -->
+                        <circle cx="50" cy="45" r="10" fill="#0071e3" fill-opacity="0.2" stroke="#0071e3" stroke-width="1.5"/>
+                        <circle cx="50" cy="45" r="4" fill="#0071e3"/>
+                        <circle cx="42" cy="95" r="8" fill="#5fc9f8" fill-opacity="0.2" stroke="#5fc9f8" stroke-width="1.5"/>
+                        <circle cx="42" cy="95" r="3" fill="#5fc9f8"/>
+                        <circle cx="58" cy="95" r="8" fill="#5fc9f8" fill-opacity="0.2" stroke="#5fc9f8" stroke-width="1.5"/>
+                        <circle cx="58" cy="95" r="3" fill="#5fc9f8"/>
+                        <circle cx="50" cy="165" r="12" fill="#0071e3" fill-opacity="0.2" stroke="#0071e3" stroke-width="1.5"/>
+                        <circle cx="50" cy="165" r="5" fill="#0071e3"/>
+                        <defs>
+                            <linearGradient id="insoleGrad" x1="0" y1="0" x2="0" y2="200" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#0071e3"/>
+                                <stop offset="1" stop-color="#5fc9f8"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+
                 <h2 class="form-title">Step into the future</h2>
                 <p class="form-desc">We are launching our private beta soon. Secure your spot on the priority list for early access and exclusive pre-order discounts.</p>
                 
-                <form action="#" method="POST" class="input-group" onsubmit="alert('Welcome to the future of friction-free wellness! We\'ll contact you soon.'); return false;">
-                    <input type="email" placeholder="Enter your email address" required>
+                <!-- Paste your Formspree unique endpoint URL below in the action attribute -->
+                <form action="https://formspree.io/f/your_unique_id" method="POST" class="input-group">
+                    <input type="email" name="email" placeholder="Enter your email address" required>
                     <button type="submit" class="btn-submit">Join the Waitlist</button>
                 </form>
             </div>
