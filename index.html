@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StepScale - The Smart Insole That Tracks Your Weight Effortlessly</title>
+    <style>
+        :root {
+            --primary: #0071e3;
+            --primary-dark: #0077ed;
+            --text-dark: #1d1d1f;
+            --text-light: #86868b;
+            --bg-light: #f5f5f7;
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--white);
+            color: var(--text-dark);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        header {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 24px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, var(--primary), #5fc9f8);
+            border-radius: 6px;
+        }
+
+        .hero {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 80px 20px;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding: 40px 20px;
+                gap: 40px;
+            }
+        }
+
+        .tagline {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 36px;
+            font-weight: 400;
+        }
+
+        /* Form Styling */
+        .waitlist-form {
+            background: var(--bg-light);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .form-desc {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid #d2d2d7;
+            border-radius: 12px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="email"]:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-submit {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 16px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Features Section */
+        .features-section {
+            background-color: var(--bg-light);
+            padding: 80px 20px;
+        }
+
+        .features-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .feature-text {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            border-top: 1px solid #e5e5e7;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">
+            <div class="logo-icon"></div>
+            StepScale
+        </a>
+    </header>
+
+    <section class="hero">
+        <div class="hero-left">
+            <span class="tagline">The Invisible Scale</span>
+            <h1>Track your weight. Just by stepping.</h1>
+            <p class="subtitle">Meet the universal insole that measures your body weight and seamlessly updates your mobile screen every single time you pick up your phone. No scales, no routine, no friction.</p>
+        </div>
+
+        <div class="hero-right">
+            <div class="waitlist-form">
+                <h2 class="form-title">Be the first to step into the future</h2>
+                <p class="form-desc">We are currently in private beta testing. Join our exclusive waitlist for early access and launch-day discounts.</p>
+                
+                <!-- Simple Form Spree or Google Sheets action can go here -->
+                <form action="#" method="POST" class="input-group" onsubmit="alert('Thank you for joining our waitlist!'); return false;">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit" class="btn-submit">Join the Waitlist</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="features-grid">
+            <div class="feature-card">
+                <span class="feature-icon">✨</span>
+                <h3 class="feature-title">Frictionless Tracking</h3>
+                <p class="feature-text">Zero habits to build. The insole automatically reads your weight during normal standing and syncs instantly. It fits into any shoe.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">📱</span>
+                <h3 class="feature-title">Glanceable Insights</h3>
+                <p class="feature-text">Using passive near-field syncing or low-energy Bluetooth, your weight updates directly on your widget or lock screen the second you grab your phone.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🔋</span>
+                <h3 class="feature-title">Ultra-Low Power</h3>
+                <p class="feature-text">Engineered with advanced energy-harvesting and low-power pressure sensors, ensuring months of continuous tracking without annoying recharges.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 StepScale. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
